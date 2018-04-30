@@ -12,9 +12,23 @@ namespace VendingMachine
 {
     public partial class Form1 : Form
     {
+        enum VendingObject
+        {
+            サイダー = 0,
+            CCレモン,
+            お茶
+        }
+
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void VendingButton_Click(object sender, EventArgs e)
+        {
+            var clicked = (Button)sender;
+
+            MessageBox.Show(clicked.Text);
         }
     }
 }
