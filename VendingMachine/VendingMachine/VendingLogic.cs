@@ -84,18 +84,24 @@ namespace VendingMachine
         /// <returns></returns>
         public Drink BuyDrink(DrinkKind kind)
         {
+            // お金が足りなかったら買えない
             if (cacheMoney.Amount() < 120)
                 return null;
+
+            // お釣りが足りなかったら買えない
 
             // 在庫が無かったら何も無し
             if (stocker.IsEmpty(kind))
                 return null;
 
             // 種類を渡すだけで、飲み物が買える
-
             return stocker.TakeOutDrink(kind);
         }
 
+        /// <summary>
+        /// お釣りを返す
+        /// </summary>
+        /// <returns></returns>
         public int ReturnChange()
         {
             return 1;
@@ -113,11 +119,6 @@ namespace VendingMachine
                 amount += item.GetAmount();
             }
             return amount;
-        }
-
-        private Drink Takeout(Queue<Drink> stocker)
-        {
-            return stocker.Dequeue();
         }
 
         /// <summary>
