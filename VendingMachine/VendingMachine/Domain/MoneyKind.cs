@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 
 namespace VendingMachine.Domain
 {
+    /// <summary>
+    /// お金クラス
+    /// </summary>
     public enum MoneyKind
     {
         [Description("1円")]
         ONE = 1,
         [Description("10円")]
         TEN = 10,
+        [Description("50円")]
+        FIFTY = 50,
         [Description("100円")]
         ONE_HUNDRED = 100,
         [Description("500円")]

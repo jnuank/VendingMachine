@@ -37,5 +37,53 @@ namespace VendingMachineTest
             Assert.AreEqual(0, logic.GetPoolMoneyAmount());
         }
 
+        [TestMethod]
+        public void TestMethod3()
+        {
+
+            logic.PutMoney(MoneyKind.FIVE_HUNDRED);
+
+            logic.BuyDrink(DrinkKind.COKE);
+
+            Assert.AreEqual(4, logic.stocker.Count(DrinkKind.COKE));
+
+            logic.BuyDrink(DrinkKind.CIDER);
+
+            Assert.AreEqual(4, logic.stocker.Count(DrinkKind.CIDER));
+
+            logic.BuyDrink(DrinkKind.TEA);
+
+            Assert.AreEqual(4, logic.stocker.Count(DrinkKind.TEA));
+
+            logic.BuyDrink(DrinkKind.COKE);
+
+            Assert.AreEqual(3, logic.stocker.Count(DrinkKind.COKE));
+
+        }
+
+        [TestMethod]
+        public void TestMethod4()
+        {
+            for(int index = 0; index<5; index++)
+            {
+                logic.BuyDrink(DrinkKind.COKE);
+            }
+
+            Assert.AreEqual(null, logic.BuyDrink(DrinkKind.COKE));
+        }
+
+        [TestMethod]
+        public void TestMethod5()
+        {
+            logic.PutMoney(MoneyKind.FIVE_HUNDRED);
+
+            logic.BuyDrink(DrinkKind.COKE);
+
+            Console.WriteLine(logic.GetPoolMoneyAmount());
+
+            Assert.AreEqual(4, logic.stocker.Count(DrinkKind.COKE));
+
+        }
+
     }
 }

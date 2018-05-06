@@ -14,10 +14,11 @@ namespace VendingMachine.Domain
     public enum DrinkKind
     {
         [Description("コーラ")]
-        Coke = 0,
+        COKE = 0,
         [Description("お茶")]
-        Tea,
+        TEA,
         [Description("サイダー")]
-        Cider
+        CIDER,
+        MAX,
     }
 }

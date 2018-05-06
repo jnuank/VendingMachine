@@ -22,7 +22,7 @@ namespace VendingMachine
         /// 飲み物を買う
         /// </summary>
         /// <param name=""></param>
-        void BuyDrink(DrinkKind kind);
+        Drink BuyDrink(DrinkKind kind);
 
         /// <summary>
         /// お釣りを返す
@@ -42,30 +42,17 @@ namespace VendingMachine
         /// <summary>
         /// 入金している金額
         /// </summary>
-        private List<Money> poolMoney = new List<Money>();
+        private CacheMoney cacheMoney = new CacheMoney();
 
         /// <summary>
-        /// ストックしている金額
+        /// ストックしている硬貨
         /// </summary>
-        private List<Money> stockMoney = new List<Money>();
+        private CoinStocker coinStocker = new CoinStocker();
 
-        //private Drink coke = new Drink(DrinkKind.Coke, 10);
-
-        //private Drink tea = new Drink(DrinkKind.Tea, 10);
-
-        //private Drink cider = new Drink(DrinkKind.Cider, 10);
-
-        private Queue<Drink> cokeStocker = Drink.Stock(DrinkKind.Coke, 10);
-
-        private Queue<Drink> teaStocker = Drink.Stock(DrinkKind.Tea, 10);
-
-        private Queue<Drink> ciderStocker = Drink.Stock(DrinkKind.Cider, 10);
-
-        private Drink coke = null;
-
-        private Drink tea = null;
-
-        private Drink cider = null;
+        /// <summary>
+        /// 飲み物在庫
+        /// </summary>
+        public DrinkStocker stocker = new DrinkStocker();
 
         #endregion
 
@@ -87,30 +74,26 @@ namespace VendingMachine
                 return;
 
             // お金をプールする。
-            poolMoney.Add(Money.Add(kind));
-
+            cacheMoney.Add(kind);
         }
 
-        public void BuyDrink(DrinkKind kind)
+        /// <summary>
+        /// 飲み物を買う
+        /// </summary>
+        /// <param name="kind"></param>
+        /// <returns></returns>
+        public Drink BuyDrink(DrinkKind kind)
         {
-            // このままだと、種類が増えるたびにスイッチ文が増える
-            switch (kind)
-            {
-                case DrinkKind.Coke:
-                    if (coke.Price <= Amount(poolMoney))
-                        cokeStocker.Dequeue();
-                    break;
-                case DrinkKind.Tea:
-                    if (tea.Price <= Amount(poolMoney))
-                        tea.Decrement();
-                    break;
-                case DrinkKind.Cider:
-                    if (cider.Price <= Amount(poolMoney))
-                        cider.Decrement();
-                    break;
-                default:
-                    break;
-            }
+            if (cacheMoney.Amount() < 120)
+                return null;
+
+            // 在庫が無かったら何も無し
+            if (stocker.IsEmpty(kind))
+                return null;
+
+            // 種類を渡すだけで、飲み物が買える
+
+            return stocker.TakeOutDrink(kind);
         }
 
         public int ReturnChange()
@@ -143,7 +126,7 @@ namespace VendingMachine
         /// <returns></returns>
         public int GetPoolMoneyAmount()
         {
-            return Amount(this.poolMoney);
+            return cacheMoney.Amount();
         }
 
     }
