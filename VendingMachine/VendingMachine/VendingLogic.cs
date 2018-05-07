@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VendingMachine.Domain;
+using VendingMachine.Domain.Moneys;
 
 namespace VendingMachine
 {
@@ -40,14 +41,9 @@ namespace VendingMachine
         #region メンバフィールド
 
         /// <summary>
-        /// 入金している金額
+        /// お金の管理をするフィールド
         /// </summary>
-        private CacheMoney cacheMoney = new CacheMoney();
-
-        /// <summary>
-        /// ストックしている硬貨
-        /// </summary>
-        private CoinStocker coinStocker = new CoinStocker();
+        private CoinMech coinMech = new CoinMech();
 
         /// <summary>
         /// 飲み物在庫
@@ -59,22 +55,13 @@ namespace VendingMachine
 
         #region 公開メソッド
 
+        /// <summary>
+        /// 入金する
+        /// </summary>
+        /// <param name="kind"></param>
         public void PutMoney(MoneyKind kind)
         {
-            // 1円、2000円、5000円、10000円は受け付けない
-            // これは業務ルール
-
-            if (kind == MoneyKind.ONE)
-                return;
-            if (kind == MoneyKind.TWO_THOUSAND)
-                return;
-            if (kind == MoneyKind.FIVE_THOUSAND)
-                return;
-            if (kind == MoneyKind.TEN_THOUSAND)
-                return;
-
-            // お金をプールする。
-            cacheMoney.Add(kind);
+            coinMech.Add(kind);
         }
 
         /// <summary>
@@ -85,7 +72,7 @@ namespace VendingMachine
         public Drink BuyDrink(DrinkKind kind)
         {
             // お金が足りなかったら買えない
-            if (cacheMoney.Amount() < 120)
+            if (coinMech.Amount() < 120)
                 return null;
 
             // お釣りが足りなかったら買えない
@@ -127,7 +114,7 @@ namespace VendingMachine
         /// <returns></returns>
         public int GetPoolMoneyAmount()
         {
-            return cacheMoney.Amount();
+            return coinMech.Amount();
         }
 
     }
