@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace VendingMachine.Domain
 {
     /// <summary>
-    /// 飲み物在庫クラス
+    /// 飲み物を収納する棚
     /// </summary>
-    public class DrinkStocker
+    public class Rack
     {
         private Dictionary<DrinkKind, Stock> drinks = new Dictionary<DrinkKind, Stock>();
 
-        public DrinkStocker()
+        public Rack()
         {
             // 初期処理として、すべての飲み物を5本ずつ補充する
             for(int index=0; index<(int)DrinkKind.MAX; index++)
