@@ -60,7 +60,35 @@ namespace VendingMachine.Domain.Moneys
 
         private bool IsChange(int price)
         {
-            
+            // Todo: このやり方だと、500円が無かった時点で、もう終了してしまう。
+            // 600円のお釣りを払う時に、500円がなくても、100円6枚出すといったお釣り計算が不可能。
+
+            int FiveHundredCount = price / (int)MoneyKind.FIVE_HUNDRED;
+            int RemainderFiveHundred = price % (int)MoneyKind.FIVE_HUNDRED;
+
+            if (!coinStocker.IsStock(MoneyKind.FIVE_HUNDRED, FiveHundredCount))
+                return false;
+
+            int OneHundredCount = RemainderFiveHundred / (int)MoneyKind.ONE_HUNDRED;
+            int RemainderOneHundred = RemainderFiveHundred % (int)MoneyKind.ONE_HUNDRED;
+
+            if (!coinStocker.IsStock(MoneyKind.ONE_HUNDRED, OneHundredCount))
+                return false;
+
+            int FiftyCount = RemainderOneHundred / (int)MoneyKind.FIFTY;
+            int RemainderFifty = RemainderOneHundred / (int)MoneyKind.FIFTY;
+
+            if (!coinStocker.IsStock(MoneyKind.FIFTY, FiftyCount))
+                return false;
+
+            int TenCount = RemainderFifty / (int)MoneyKind.TEN;
+            int RemainderTenCount = RemainderFifty % (int)MoneyKind.TEN;
+
+            if (!coinStocker.IsStock(MoneyKind.TEN, TenCount))
+                return false;
+
+            // お釣りのストックは充分
+            return true;
         }
 
         /// <summary>
