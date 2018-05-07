@@ -38,6 +38,26 @@ namespace VendingMachine.Domain
             return amount;
         }
 
+        /// <summary>
+        /// 指定した種類のお金があるか
+        /// </summary>
+        /// <param name="kind"></param>
+        /// <returns></returns>
+        public bool IsStock(MoneyKind kind)
+        {
+            return stocker[kind].Count() > 0;
+        }
+
+        /// <summary>
+        /// 指定した種類のお金を返す
+        /// </summary>
+        /// <param name="kind"></param>
+        /// <returns></returns>
+        public Money Pop(MoneyKind kind)
+        {
+            return Money.Add(kind);
+        }
+
         
     }
 }

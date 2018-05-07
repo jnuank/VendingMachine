@@ -42,5 +42,44 @@ namespace VendingMachine.Domain.Moneys
         {
             return cache.Amount();
         }
+
+        public int ReturnChange()
+        {
+            return cache.Return();
+        }
+
+        private int CalcChange(int price)
+        {
+            return Amount() - price;
+        }
+
+        private bool IsEnough(int price)
+        {
+            return (Amount() - price) >= 0;
+        }
+
+        private bool IsChange(int price)
+        {
+            
+        }
+
+        /// <summary>
+        /// 購入可能である
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPurchase(int price)
+        {
+            // プール金と価格が足りるか
+            if (IsEnough(price))
+                return false;
+
+            // お釣りを返せるか
+            
+            
+
+
+        }
+
+        
     }
 }

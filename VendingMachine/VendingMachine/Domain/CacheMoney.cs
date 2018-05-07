@@ -19,7 +19,7 @@ namespace VendingMachine.Domain
         }
 
         /// <summary>
-        /// プールしているお金を渡す
+        /// プールしているお金の金額を教える
         /// </summary>
         /// <returns></returns>
         public int Amount()
@@ -31,5 +31,19 @@ namespace VendingMachine.Domain
             }
             return amount;
         }
+
+        /// <summary>
+        /// プールしているお金を返す
+        /// </summary>
+        /// <returns></returns>
+        public int Return()
+        {
+            int amount = this.Amount();
+            cache.Clear();
+
+            return amount;
+        }
+
+
     }
 }

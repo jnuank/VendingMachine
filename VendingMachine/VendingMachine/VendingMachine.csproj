@@ -47,9 +47,11 @@
   <ItemGroup>
     <Compile Include="Domain\CacheMoney.cs" />
     <Compile Include="Domain\CoinStorage.cs" />
-    <Compile Include="Domain\Drink\Drink.cs" />
-    <Compile Include="Domain\Drink\DrinkKind.cs" />
-    <Compile Include="Domain\DrinkStocker.cs" />
+    <Compile Include="Domain\Drinks\Drink.cs" />
+    <Compile Include="Domain\Drinks\DrinkKind.cs" />
+    <Compile Include="Domain\Moneys\Change.cs" />
+    <Compile Include="Domain\Moneys\CoinMech.cs" />
+    <Compile Include="Domain\Rack.cs" />
     <Compile Include="Domain\Money.cs" />
     <Compile Include="Domain\MoneyKind.cs" />
     <Compile Include="Domain\Stock.cs" />

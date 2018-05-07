@@ -91,7 +91,8 @@ namespace VendingMachine
         /// <returns></returns>
         public int ReturnChange()
         {
-            return 1;
+            // TODO:int型になっているので、これを直したい
+            return coinMech.ReturnChange();
         }
 
 
