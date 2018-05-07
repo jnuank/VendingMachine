@@ -52,7 +52,7 @@ namespace VendingMachine
         /// <summary>
         /// 飲み物在庫
         /// </summary>
-        public DrinkStocker stocker = new DrinkStocker();
+        public Rack rack = new Rack();
 
         #endregion
 
@@ -91,11 +91,11 @@ namespace VendingMachine
             // お釣りが足りなかったら買えない
 
             // 在庫が無かったら何も無し
-            if (stocker.IsEmpty(kind))
+            if (rack.IsEmpty(kind))
                 return null;
 
             // 種類を渡すだけで、飲み物が買える
-            return stocker.TakeOutDrink(kind);
+            return rack.TakeOutDrink(kind);
         }
 
         /// <summary>

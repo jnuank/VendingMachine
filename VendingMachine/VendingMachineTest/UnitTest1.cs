@@ -45,19 +45,19 @@ namespace VendingMachineTest
 
             logic.BuyDrink(DrinkKind.COKE);
 
-            Assert.AreEqual(4, logic.stocker.Count(DrinkKind.COKE));
+            Assert.AreEqual(4, logic.rack.Count(DrinkKind.COKE));
 
             logic.BuyDrink(DrinkKind.CIDER);
 
-            Assert.AreEqual(4, logic.stocker.Count(DrinkKind.CIDER));
+            Assert.AreEqual(4, logic.rack.Count(DrinkKind.CIDER));
 
             logic.BuyDrink(DrinkKind.TEA);
 
-            Assert.AreEqual(4, logic.stocker.Count(DrinkKind.TEA));
+            Assert.AreEqual(4, logic.rack.Count(DrinkKind.TEA));
 
             logic.BuyDrink(DrinkKind.COKE);
 
-            Assert.AreEqual(3, logic.stocker.Count(DrinkKind.COKE));
+            Assert.AreEqual(3, logic.rack.Count(DrinkKind.COKE));
 
         }
 
@@ -81,7 +81,7 @@ namespace VendingMachineTest
 
             Console.WriteLine(logic.GetPoolMoneyAmount());
 
-            Assert.AreEqual(4, logic.stocker.Count(DrinkKind.COKE));
+            Assert.AreEqual(4, logic.rack.Count(DrinkKind.COKE));
 
         }
 
