@@ -43,9 +43,14 @@ namespace VendingMachine.Domain
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
-        public bool IsStock(MoneyKind kind)
+        public bool IsStock(MoneyKind kind, int count = 1)
         {
-            return stocker[kind].Count() > 0;
+            return stocker[kind].Count() >= count;
+        }
+
+        public int Count(MoneyKind kind)
+        {
+            return stocker[kind].Count();   
         }
 
         /// <summary>

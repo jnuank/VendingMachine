@@ -12,8 +12,14 @@ namespace VendingMachine.Domain.Moneys
     /// </summary>
     public class CoinMech
     {
+        /// <summary>
+        /// 入金したお金
+        /// </summary>
         private CacheMoney cache = new CacheMoney();
 
+        /// <summary>
+        /// 硬貨在庫
+        /// </summary>
         private CoinStocker coinStocker = new CoinStocker();
 
 
@@ -53,13 +59,27 @@ namespace VendingMachine.Domain.Moneys
             return Amount() - price;
         }
 
+        /// <summary>
+        /// お金が足りているか
+        /// </summary>
+        /// <param name="price"></param>
+        /// <returns></returns>
         private bool IsEnough(int price)
         {
             return (Amount() - price) >= 0;
         }
 
-        private bool IsChange(int price)
+        public bool IsChange(int price)
         {
+            int rem = 0;
+            int dev = 0;
+            dev = Math.DivRem(price, 500, out rem);
+
+            dev = Math.DivRem(rem, 100, out rem);
+            dev = Math.DivRem(rem, 50, out rem);
+            dev = Math.DivRem(rem, 10, out rem);
+
+
             // Todo: このやり方だと、500円が無かった時点で、もう終了してしまう。
             // 600円のお釣りを払う時に、500円がなくても、100円6枚出すといったお釣り計算が不可能。
 
@@ -92,7 +112,7 @@ namespace VendingMachine.Domain.Moneys
         }
 
         /// <summary>
-        /// 購入可能である
+        /// 購入可能であるか
         /// </summary>
         /// <returns></returns>
         public bool IsPurchase(int price)
@@ -102,12 +122,10 @@ namespace VendingMachine.Domain.Moneys
                 return false;
 
             // お釣りを返せるか
-            
-            
-
+            return true;
 
         }
-
-        
     }
+
+    
 }

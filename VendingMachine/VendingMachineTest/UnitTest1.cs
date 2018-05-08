@@ -85,5 +85,13 @@ namespace VendingMachineTest
 
         }
 
+        [TestMethod]
+        public void TestMethod6()
+        {
+            var logic = new VendingMachine.Domain.Moneys.CoinMech();
+
+            logic.IsChange(1100);
+        }
+
     }
 }

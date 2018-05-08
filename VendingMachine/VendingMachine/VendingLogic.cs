@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using VendingMachine.Domain;
 using VendingMachine.Domain.Moneys;
 
@@ -71,11 +67,9 @@ namespace VendingMachine
         /// <returns></returns>
         public Drink BuyDrink(DrinkKind kind)
         {
-            // お金が足りなかったら買えない
-            if (coinMech.Amount() < 120)
+            // お金の都合で購入出来ない状態
+            if (!coinMech.IsPurchase(120))
                 return null;
-
-            // お釣りが足りなかったら買えない
 
             // 在庫が無かったら何も無し
             if (rack.IsEmpty(kind))
