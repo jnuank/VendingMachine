@@ -26,7 +26,7 @@ namespace VendingMachine
         /// お釣りを返す
         /// </summary>
         /// <returns></returns>
-        int ReturnChange();
+        Change ReturnChange();
 
     }
 
@@ -77,14 +77,18 @@ namespace VendingMachine
                 return null;
 
             // 種類を渡すだけで、飲み物が買える
-            return rack.TakeOutDrink(kind);
+            Drink drink = rack.TakeOutDrink(kind);
+
+
+            return drink;
+
         }
 
         /// <summary>
         /// お釣りを返す
         /// </summary>
         /// <returns></returns>
-        public int ReturnChange()
+        public Change ReturnChange()
         {
             // TODO:int型になっているので、これを直したい
             return coinMech.ReturnChange();

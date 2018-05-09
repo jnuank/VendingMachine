@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VendingMachine.Domain.Moneys;
 
 namespace VendingMachine.Domain
 {
@@ -31,14 +32,21 @@ namespace VendingMachine.Domain
         /// プールしているお金を返す
         /// </summary>
         /// <returns></returns>
-        public int Return()
+        public Change Return()
         {
-            int amount = this.Amount();
-            cache.Clear();
-
-            return amount;
+            return Change.Create(new List<MoneyKind>());
         }
 
+        /// <summary>
+        /// プールしているお金を取り出す
+        /// </summary>
+        /// <returns></returns>
+        public List<MoneyKind> TakeOut()
+        {
+            List<MoneyKind> moneys = this.cache.ToList();
+            cache.Clear();
+            return moneys;
+        }
 
     }
 }

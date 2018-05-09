@@ -63,6 +63,26 @@ namespace VendingMachine.Domain
             return Money.Add(kind);
         }
 
-        
+        #region 両替できるか
+
+        // Todo:名称とかひどいから後で直す
+        public bool IsChange100(int amount)
+        {
+            int count = amount / 100;
+            return (Count(MoneyKind.ONE_HUNDRED) - count) >= 0;
+        }
+
+        public bool IsChange50(int amount)
+        {
+            int count = amount / 50;
+            return (Count(MoneyKind.FIFTY) - count) >= 0;
+        }
+
+        public bool IsChange10(int amount)
+        {
+            int count = amount / 10;
+            return (Count(MoneyKind.TEN) - count) >= 0;
+        }
+        #endregion
     }
 }

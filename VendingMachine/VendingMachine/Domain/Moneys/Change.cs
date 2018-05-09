@@ -24,5 +24,13 @@ namespace VendingMachine.Domain.Moneys
         {
             return new Change(moneys);
         }
+
+        public void Add(MoneyKind kind, int amount = 1)
+        {
+            for(int i=0; i<amount; i++)
+            {
+                moneys.Add(kind);
+            }
+        }
     }
 }

@@ -45,16 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\CacheMoney.cs" />
-    <Compile Include="Domain\CoinStorage.cs" />
+    <Compile Include="Domain\Moneys\CacheMoney.cs" />
+    <Compile Include="Domain\Moneys\CoinStorage.cs" />
     <Compile Include="Domain\Drinks\Drink.cs" />
     <Compile Include="Domain\Drinks\DrinkKind.cs" />
     <Compile Include="Domain\Drinks\PriceAttribute.cs" />
     <Compile Include="Domain\Moneys\Change.cs" />
     <Compile Include="Domain\Moneys\CoinMech.cs" />
-    <Compile Include="Domain\Rack.cs" />
-    <Compile Include="Domain\Money.cs" />
-    <Compile Include="Domain\MoneyKind.cs" />
+    <Compile Include="Domain\Drinks\Rack.cs" />
+    <Compile Include="Domain\Moneys\Money.cs" />
+    <Compile Include="Domain\Moneys\MoneyKind.cs" />
     <Compile Include="Domain\Stock.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

@@ -93,5 +93,19 @@ namespace VendingMachineTest
             logic.IsChange(1100);
         }
 
+        [TestMethod]
+        public void TestChange()
+        {
+            // 500円を2回入れる
+            logic.PutMoney(MoneyKind.FIVE_HUNDRED);
+            logic.PutMoney(MoneyKind.FIVE_HUNDRED);
+
+            // 120円のコーラを買う
+            logic.BuyDrink(DrinkKind.COKE);
+
+            logic.ReturnChange();
+
+        }
+
     }
 }

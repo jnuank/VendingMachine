@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VendingMachine.Domain;
 
 namespace VendingMachine.Domain.Moneys
 {
@@ -49,7 +45,8 @@ namespace VendingMachine.Domain.Moneys
             return cache.Amount();
         }
 
-        public int ReturnChange()
+        // お釣りを返す
+        public Change ReturnChange()
         {
             return cache.Return();
         }
@@ -73,7 +70,35 @@ namespace VendingMachine.Domain.Moneys
         {
             int rem = 0;
             int dev = 0;
+            // 500円が何枚必要か
             dev = Math.DivRem(price, 500, out rem);
+
+            int count = coinStocker.Count(MoneyKind.FIVE_HUNDRED) - dev;
+
+            // お釣りケース作成
+            Change changeCase = Change.Create(new List<MoneyKind>());
+
+            // 足りなかった場合
+            if(count < 0)
+            {
+                int abs = Math.Abs(count);
+                if(coinStocker.IsChange100(abs))
+                {
+                    changeCase.Add(MoneyKind.ONE_HUNDRED, 5);
+                }
+                if(coinStocker.IsChange50(abs))
+                {
+                    changeCase.Add(MoneyKind.FIFTY, 10);
+                }
+                if(coinStocker.IsChange10(abs))
+                {
+                    changeCase.Add(MoneyKind.TEN, 50);
+                }
+            }
+
+            // 足りた場合
+            changeCase.Add(MoneyKind.FIVE_HUNDRED, dev);
+
 
             dev = Math.DivRem(rem, 100, out rem);
             dev = Math.DivRem(rem, 50, out rem);
@@ -110,7 +135,6 @@ namespace VendingMachine.Domain.Moneys
             // お釣りのストックは充分
             return true;
         }
-
         /// <summary>
         /// 購入可能であるか
         /// </summary>
@@ -124,6 +148,14 @@ namespace VendingMachine.Domain.Moneys
             // お釣りを返せるか
             return true;
 
+        }
+
+        // キャッシュしているお金を在庫に加える
+        public void StockMoney()
+        {
+            // キャッシュしているお金を取得　List
+
+            // 硬貨別に保存 引数:List
         }
     }
 
