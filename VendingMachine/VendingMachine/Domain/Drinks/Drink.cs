@@ -20,7 +20,7 @@ namespace VendingMachine.Domain
         /// <summary>
         /// 価格
         /// </summary>
-        public int Price { get; protected set; } = 120;
+        public int Price { get; protected set; }
 
         public Drink(DrinkKind kind)
         {

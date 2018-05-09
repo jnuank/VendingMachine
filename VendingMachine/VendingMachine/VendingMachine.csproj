@@ -49,6 +49,7 @@
     <Compile Include="Domain\CoinStorage.cs" />
     <Compile Include="Domain\Drinks\Drink.cs" />
     <Compile Include="Domain\Drinks\DrinkKind.cs" />
+    <Compile Include="Domain\Drinks\PriceAttribute.cs" />
     <Compile Include="Domain\Moneys\Change.cs" />
     <Compile Include="Domain\Moneys\CoinMech.cs" />
     <Compile Include="Domain\Rack.cs" />
@@ -77,6 +78,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

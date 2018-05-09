@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Reflection;
+﻿using System.ComponentModel;
+using VendingMachine.Domain.Drinks;
 
 namespace VendingMachine.Domain
 {
@@ -14,10 +9,13 @@ namespace VendingMachine.Domain
     public enum DrinkKind
     {
         [Description("コーラ")]
+        [Price(120)]
         COKE = 0,
         [Description("お茶")]
+        [Price(110)]
         TEA,
         [Description("サイダー")]
+        [Price(130)]
         CIDER,
         MAX,
     }

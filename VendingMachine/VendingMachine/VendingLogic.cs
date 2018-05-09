@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using VendingMachine.Domain;
 using VendingMachine.Domain.Moneys;
+using VendingMachine.Utility;
 
 namespace VendingMachine
 {
@@ -38,7 +39,7 @@ namespace VendingMachine
 
         /// <summary>
         /// お金の管理をするフィールド
-        /// </summary>
+        /// </summary>s
         private CoinMech coinMech = new CoinMech();
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace VendingMachine
         public Drink BuyDrink(DrinkKind kind)
         {
             // お金の都合で購入出来ない状態
-            if (!coinMech.IsPurchase(120))
+            if (!coinMech.IsPurchase(kind.GetPrice()))
                 return null;
 
             // 在庫が無かったら何も無し
@@ -91,17 +92,6 @@ namespace VendingMachine
 
 
         #endregion
-
-        private int Amount(List<Money> money)
-        {
-            int amount = 0;
-
-            foreach (var item in money)
-            {
-                amount += item.GetAmount();
-            }
-            return amount;
-        }
 
         /// <summary>
         /// 自販機に入金している金額を取得する

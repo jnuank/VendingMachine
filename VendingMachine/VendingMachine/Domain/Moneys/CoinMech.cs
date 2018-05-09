@@ -118,7 +118,7 @@ namespace VendingMachine.Domain.Moneys
         public bool IsPurchase(int price)
         {
             // プール金と価格が足りるか
-            if (IsEnough(price))
+            if (!IsEnough(price))
                 return false;
 
             // お釣りを返せるか

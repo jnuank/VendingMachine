@@ -43,7 +43,7 @@ namespace VendingMachineTest
 
             logic.PutMoney(MoneyKind.FIVE_HUNDRED);
 
-            logic.BuyDrink(DrinkKind.COKE);
+            logic.BuyDrink(DrinkKind.CIDER);
 
             Assert.AreEqual(4, logic.rack.Count(DrinkKind.COKE));
 

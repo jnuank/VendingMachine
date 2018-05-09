@@ -24,12 +24,7 @@ namespace VendingMachine.Domain
         /// <returns></returns>
         public int Amount()
         {
-            int amount = 0;
-            foreach (var money in cache)
-            {
-                amount += (int)money;
-            }
-            return amount;
+            return cache.Sum(money => (int)money);
         }
 
         /// <summary>
