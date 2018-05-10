@@ -34,6 +34,8 @@
             this.grpButton = new System.Windows.Forms.GroupBox();
             this.cmbMoney = new System.Windows.Forms.ComboBox();
             this.btnPut = new System.Windows.Forms.Button();
+            this.lblMoney = new System.Windows.Forms.Label();
+            this.btnChange = new System.Windows.Forms.Button();
             this.grpButton.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,6 +47,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "サイダー";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Cider_Click);
             // 
             // button2
             // 
@@ -54,6 +57,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "お茶";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Tea_Click);
             // 
             // button3
             // 
@@ -63,7 +67,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "コーラ";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.Coke_Click);
             // 
             // grpButton
             // 
@@ -92,12 +96,35 @@
             this.btnPut.TabIndex = 3;
             this.btnPut.Text = "入金";
             this.btnPut.UseVisualStyleBackColor = true;
+            this.btnPut.Click += new System.EventHandler(this.btnPut_Click);
+            // 
+            // lblMoney
+            // 
+            this.lblMoney.AutoSize = true;
+            this.lblMoney.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.lblMoney.Location = new System.Drawing.Point(411, 240);
+            this.lblMoney.Name = "lblMoney";
+            this.lblMoney.Size = new System.Drawing.Size(19, 20);
+            this.lblMoney.TabIndex = 5;
+            this.lblMoney.Text = "0";
+            // 
+            // btnChange
+            // 
+            this.btnChange.Location = new System.Drawing.Point(367, 353);
+            this.btnChange.Name = "btnChange";
+            this.btnChange.Size = new System.Drawing.Size(85, 46);
+            this.btnChange.TabIndex = 6;
+            this.btnChange.Text = "お釣り";
+            this.btnChange.UseVisualStyleBackColor = true;
+            this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
             // 
             // VendingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(492, 422);
+            this.Controls.Add(this.btnChange);
+            this.Controls.Add(this.lblMoney);
             this.Controls.Add(this.btnPut);
             this.Controls.Add(this.cmbMoney);
             this.Controls.Add(this.grpButton);
@@ -105,6 +132,7 @@
             this.Text = "Form1";
             this.grpButton.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -116,6 +144,8 @@
         private System.Windows.Forms.GroupBox grpButton;
         private System.Windows.Forms.ComboBox cmbMoney;
         private System.Windows.Forms.Button btnPut;
+        private System.Windows.Forms.Label lblMoney;
+        private System.Windows.Forms.Button btnChange;
     }
 }
 
