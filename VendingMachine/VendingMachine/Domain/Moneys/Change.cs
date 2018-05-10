@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VendingMachine.Utility;
 
 namespace VendingMachine.Domain.Moneys
 {
@@ -35,7 +36,7 @@ namespace VendingMachine.Domain.Moneys
 
         public int Amount()
         {
-            return moneys.Sum(money => (int)money);
+            return moneys.Sum(money => money.GetPrice());
         }
     }
 }

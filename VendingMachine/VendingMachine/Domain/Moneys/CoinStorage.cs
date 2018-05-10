@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VendingMachine.Utility;
 
 namespace VendingMachine.Domain
 {
@@ -31,10 +32,10 @@ namespace VendingMachine.Domain
         {
             int amount = 0;
 
-            amount += (int)MoneyKind.TEN * stocker[MoneyKind.TEN].Count();
-            amount += (int)MoneyKind.ONE_HUNDRED * stocker[MoneyKind.ONE_HUNDRED].Count();
-            amount += (int)MoneyKind.FIFTY * stocker[MoneyKind.FIFTY].Count();
-            amount += (int)MoneyKind.FIVE_HUNDRED * stocker[MoneyKind.FIVE_HUNDRED].Count();
+            amount += MoneyKind.TEN.GetPrice() * stocker[MoneyKind.TEN].Count();
+            amount += MoneyKind.ONE_HUNDRED.GetPrice() * stocker[MoneyKind.ONE_HUNDRED].Count();
+            amount += MoneyKind.FIFTY.GetPrice() * stocker[MoneyKind.FIFTY].Count();
+            amount += MoneyKind.FIVE_HUNDRED.GetPrice() * stocker[MoneyKind.FIVE_HUNDRED].Count();
 
             return amount;
         }

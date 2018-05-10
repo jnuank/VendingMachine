@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using VendingMachine.Domain.Drinks;
 
 namespace VendingMachine.Domain
 {

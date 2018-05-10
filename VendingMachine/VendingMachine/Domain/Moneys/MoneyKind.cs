@@ -15,24 +15,36 @@ namespace VendingMachine.Domain
         // Todo: 列挙型はやっぱり連番じゃないとあかんな。
         // for文で回すことも出来ないし。MAXとか付けられないし。
         [Description("1円")]
-        ONE = 1,
+        [Price(1)]
+        ONE = 0,
         [Description("5円")]
-        FIVE = 5,
+        [Price(5)]
+        FIVE,
         [Description("10円")]
-        TEN = 10,
+        [Price(10)]
+        TEN,
         [Description("50円")]
-        FIFTY = 50,
+        [Price(50)]
+        FIFTY,
         [Description("100円")]
-        ONE_HUNDRED = 100,
+        [Price(100)]
+        ONE_HUNDRED,
         [Description("500円")]
-        FIVE_HUNDRED = 500,
+        [Price(500)]
+        FIVE_HUNDRED,
         [Description("1000円")]
-        THOUSAND = 1000,
+        [Price(1000)]
+        THOUSAND,
         [Description("2000円")]
-        TWO_THOUSAND = 2000,
+        [Price(2000)]
+        TWO_THOUSAND,
         [Description("5000円")]
-        FIVE_THOUSAND = 5000,
+        [Price(5000)]
+        FIVE_THOUSAND,
         [Description("10000円")]
-        TEN_THOUSAND = 10000,
+        [Price(10000)]
+        TEN_THOUSAND,
+
+        MAX
     }
 }

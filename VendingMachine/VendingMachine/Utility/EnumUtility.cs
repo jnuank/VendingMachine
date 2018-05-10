@@ -25,7 +25,7 @@ namespace VendingMachine.Utility
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
-        public static int GetPrice(this DrinkKind kind)
+        public static int GetPrice<T>(this T kind)
         {
             MemberInfo members = kind.GetType().GetMember(kind.ToString()).FirstOrDefault();
             Attribute attribute = members.GetCustomAttribute(typeof(PriceAttribute), false);

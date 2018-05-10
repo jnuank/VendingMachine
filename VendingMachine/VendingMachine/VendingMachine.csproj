@@ -49,7 +49,7 @@
     <Compile Include="Domain\Moneys\CoinStorage.cs" />
     <Compile Include="Domain\Drinks\Drink.cs" />
     <Compile Include="Domain\Drinks\DrinkKind.cs" />
-    <Compile Include="Domain\Drinks\PriceAttribute.cs" />
+    <Compile Include="Domain\PriceAttribute.cs" />
     <Compile Include="Domain\Moneys\Change.cs" />
     <Compile Include="Domain\Moneys\CoinMech.cs" />
     <Compile Include="Domain\Drinks\Rack.cs" />

@@ -45,7 +45,7 @@ namespace VendingMachine.Domain.Moneys
 
             // todo:kind.value();みたいにする
             // 入れた貨幣の金額をキャッシュする
-            cache.Add((int)kind);
+            cache.Add(kind.GetPrice());
         }
 
         public int Amount()
