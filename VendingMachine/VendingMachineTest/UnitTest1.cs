@@ -133,7 +133,28 @@ namespace VendingMachineTest
 
             var change = logic.ReturnChange();
 
-            Assert.AreEqual(880, logic.ReturnChange().Amount());
+            Assert.AreEqual(880, change.Amount());
+        }
+
+        [TestMethod]
+        public void TestChange3()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                logic.PutMoney(MoneyKind.ONE_HUNDRED);
+            }
+            // 120円のコーラを買う
+            logic.BuyDrink(DrinkKind.COKE);
+
+            // お釣りを出す
+            var change = logic.ReturnChange();
+
+            Assert.AreEqual(880, change.Amount());
+
+            var change2 = logic.ReturnChange();
+
+            Assert.AreEqual(0, change2.Amount());
+
         }
     }
 }

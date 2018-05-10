@@ -204,19 +204,6 @@ namespace VendingMachine.Domain.Moneys
 
         }
 
-        // キャッシュしているお金を在庫に加える
-        public void StockMoney()
-        {
-            // キャッシュしているお金を取得　List
-            var pool = cache.TakeOut();
-
-            // 硬貨別に保存 引数:List
-            foreach (var moneyKind in pool)
-            {
-                coinStocker.Stock(moneyKind);
-            }
-        }
-
         /// <summary>
         /// キャッシュしたお金から支払う
         /// </summary>
