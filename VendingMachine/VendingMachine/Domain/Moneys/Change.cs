@@ -14,16 +14,10 @@ namespace VendingMachine.Domain.Moneys
     {
         List<MoneyKind> moneys = new List<MoneyKind>();
 
-
-        private Change(List<MoneyKind> moneys)
+        // コンストラクタを隠す
+        public Change(List<MoneyKind> moneys)
         {
             this.moneys = moneys;
-            // Do Nothing
-        }
-
-        public static Change Create(List<MoneyKind> moneys)
-        {
-            return new Change(moneys);
         }
 
         public void Add(MoneyKind kind, int amount = 1)

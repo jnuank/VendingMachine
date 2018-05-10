@@ -8,13 +8,13 @@ using VendingMachine.Utility;
 namespace VendingMachine.Domain
 {
     /// <summary>
-    /// 
+    /// 貨幣在庫クラス
     /// </summary>
-    public class CoinStocker
+    public class MoneyStorage
     {
         private Dictionary<MoneyKind, Stock> stocker = new Dictionary<MoneyKind, Stock>();
 
-        public CoinStocker()
+        public MoneyStorage()
         {
             // 硬貨をストックしておく
             stocker.Add(MoneyKind.TEN, new Stock(10));

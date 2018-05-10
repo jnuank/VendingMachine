@@ -17,7 +17,7 @@ namespace VendingMachine.Domain.Moneys
         /// <summary>
         /// 硬貨在庫
         /// </summary>
-        private CoinStocker coinStocker = new CoinStocker();
+        private MoneyStorage coinStocker = new MoneyStorage();
 
 
         /// <summary>
@@ -53,17 +53,15 @@ namespace VendingMachine.Domain.Moneys
             return cache.Amount();
         }
 
-        // お釣りを返す
+        /// <summary>
+        /// お釣りを返す
+        /// </summary>
+        /// <returns></returns>
         public Change Refund()
         {
             int amount = cache.Refund();
 
             return Exchange(amount);
-        }
-
-        private int CalcChange(int price)
-        {
-            return Amount() - price;
         }
 
         /// <summary>
@@ -76,11 +74,12 @@ namespace VendingMachine.Domain.Moneys
             return (Amount() - price) >= 0;
         }
 
-        #region お金
-
-
-        #endregion
-        public Change Exchange(int amount)
+        /// <summary>
+        /// 両替する
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        private Change Exchange(int amount)
         {
             int rem = 0;
             int dev = 0;
@@ -90,7 +89,7 @@ namespace VendingMachine.Domain.Moneys
             int count = coinStocker.Count(MoneyKind.FIVE_HUNDRED) - dev;
 
             // お釣りケース作成
-            Change changeCase = Change.Create(new List<MoneyKind>());
+            Change changeCase = new Change(new List<MoneyKind>());
 
             // 足りなかった場合
             if (count < 0)
@@ -177,17 +176,18 @@ namespace VendingMachine.Domain.Moneys
 
         }
 
-
-
+        /// <summary>
+        /// お釣りが出せるか
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public bool IsChange(int amount)
         {
             if (Exchange(amount) == null)
                 return false;
 
             return true;
-
         }
-
 
         /// <summary>
         /// 購入可能であるか
@@ -200,6 +200,9 @@ namespace VendingMachine.Domain.Moneys
                 return false;
 
             // お釣りを返せるか
+            if (!IsChange(price))
+                return false;
+
             return true;
 
         }
