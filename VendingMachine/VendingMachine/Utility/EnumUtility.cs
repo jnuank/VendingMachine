@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using VendingMachine.Domain;
-using VendingMachine.Domain.Drinks;
 
 namespace VendingMachine.Utility
 {
