@@ -12,13 +12,17 @@ namespace VendingMachine.Domain
     /// </summary>
     public class CacheMoney
     {
-        Money money = new Money();
+        Money money = new Money(0);
 
         List<MoneyKind> cache = new List<MoneyKind>();
 
-        public void Add(MoneyKind kind)
+        /// <summary>
+        /// お金を追加する
+        /// </summary>
+        /// <param name="amount"></param>
+        public void Add(int amount)
         {
-            cache.Add(kind);
+            money = money.Add(amount);
         }
 
         /// <summary>
@@ -27,16 +31,16 @@ namespace VendingMachine.Domain
         /// <returns></returns>
         public int Amount()
         {
-            return cache.Sum(money => (int)money);
+            return money.GetAmount();
         }
 
         /// <summary>
         /// プールしているお金を返す
         /// </summary>
         /// <returns></returns>
-        public Change Refund()
+        public int Refund()
         {
-            return Change.Create(new List<MoneyKind>());
+            return money.GetAmount();
         }
 
         /// <summary>
@@ -50,15 +54,9 @@ namespace VendingMachine.Domain
             return moneys;
         }
 
-        /// <summary>
-        /// 指定した金額分、プールしているお金を取り出す
-        /// </summary>
-        /// <param name="price"></param>
-        /// <returns></returns>
-        public List<MoneyKind> TakeOut(int price)
+        public void Minus(int amount)
         {
-            price
+            money = money.Minus(amount);
         }
-
     }
 }

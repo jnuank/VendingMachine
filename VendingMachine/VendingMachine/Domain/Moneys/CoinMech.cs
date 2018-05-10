@@ -40,10 +40,12 @@ namespace VendingMachine.Domain.Moneys
             if (kind == MoneyKind.TEN_THOUSAND)
                 return;
 
-            // Todo:
-            // プール金の方は、int amountだけ持つようにする。
-            // 実際のMoneyKindはCoinStockerに入れてしまう。
-            cache.Add(kind);
+            // 貨幣在庫にお金を保管する
+            coinStocker.Stock(kind);
+
+            // todo:kind.value();みたいにする
+            // 入れた貨幣の金額をキャッシュする
+            cache.Add((int)kind);
         }
 
         public int Amount()
@@ -54,7 +56,9 @@ namespace VendingMachine.Domain.Moneys
         // お釣りを返す
         public Change Refund()
         {
-            return cache.Refund();
+            int amount = cache.Refund();
+
+            return Exchange(amount);
         }
 
         private int CalcChange(int price)
@@ -72,12 +76,16 @@ namespace VendingMachine.Domain.Moneys
             return (Amount() - price) >= 0;
         }
 
-        public bool IsChange(int price)
+        #region お金
+
+
+        #endregion
+        public Change Exchange(int amount)
         {
             int rem = 0;
             int dev = 0;
             // 500円が何枚必要か
-            dev = Math.DivRem(price, 500, out rem);
+            dev = Math.DivRem(amount, 500, out rem);
 
             int count = coinStocker.Count(MoneyKind.FIVE_HUNDRED) - dev;
 
@@ -85,62 +93,102 @@ namespace VendingMachine.Domain.Moneys
             Change changeCase = Change.Create(new List<MoneyKind>());
 
             // 足りなかった場合
-            if(count < 0)
+            if (count < 0)
             {
                 int abs = Math.Abs(count);
-                if(coinStocker.IsChange100(abs))
+                if (coinStocker.IsChange100(abs))
                 {
                     changeCase.Add(MoneyKind.ONE_HUNDRED, 5);
+
                 }
-                if(coinStocker.IsChange50(abs))
+                else if (coinStocker.IsChange50(abs))
                 {
                     changeCase.Add(MoneyKind.FIFTY, 10);
                 }
-                if(coinStocker.IsChange10(abs))
+                else if (coinStocker.IsChange10(abs))
                 {
                     changeCase.Add(MoneyKind.TEN, 50);
+                }
+                else
+                {
+                    return null;
                 }
             }
 
             // 足りた場合
             changeCase.Add(MoneyKind.FIVE_HUNDRED, dev);
 
-
             dev = Math.DivRem(rem, 100, out rem);
+            count = coinStocker.Count(MoneyKind.ONE_HUNDRED) - dev;
+
+            if (count < 0)
+            {
+                int abs = Math.Abs(count);
+                if (coinStocker.IsChange50(abs))
+                {
+                    changeCase.Add(MoneyKind.FIFTY, 2);
+                }
+                else if (coinStocker.IsChange10(abs))
+                {
+                    changeCase.Add(MoneyKind.TEN, 10);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            // 足りた場合
+            changeCase.Add(MoneyKind.ONE_HUNDRED, dev);
+
             dev = Math.DivRem(rem, 50, out rem);
+            count = coinStocker.Count(MoneyKind.FIFTY) - dev;
+
+            if (count < 0)
+            {
+                int abs = Math.Abs(count);
+                if (coinStocker.IsChange10(abs))
+                {
+                    changeCase.Add(MoneyKind.TEN, 5);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            // 足りた場合
+            changeCase.Add(MoneyKind.FIFTY, dev);
+
+
             dev = Math.DivRem(rem, 10, out rem);
+            count = coinStocker.Count(MoneyKind.TEN) - dev;
 
+            if (count < 0)
+            {
+                return null;
+            }
 
-            // Todo: このやり方だと、500円が無かった時点で、もう終了してしまう。
-            // 600円のお釣りを払う時に、500円がなくても、100円6枚出すといったお釣り計算が不可能。
-
-            int FiveHundredCount = price / (int)MoneyKind.FIVE_HUNDRED;
-            int RemainderFiveHundred = price % (int)MoneyKind.FIVE_HUNDRED;
-
-            if (!coinStocker.IsStock(MoneyKind.FIVE_HUNDRED, FiveHundredCount))
-                return false;
-
-            int OneHundredCount = RemainderFiveHundred / (int)MoneyKind.ONE_HUNDRED;
-            int RemainderOneHundred = RemainderFiveHundred % (int)MoneyKind.ONE_HUNDRED;
-
-            if (!coinStocker.IsStock(MoneyKind.ONE_HUNDRED, OneHundredCount))
-                return false;
-
-            int FiftyCount = RemainderOneHundred / (int)MoneyKind.FIFTY;
-            int RemainderFifty = RemainderOneHundred / (int)MoneyKind.FIFTY;
-
-            if (!coinStocker.IsStock(MoneyKind.FIFTY, FiftyCount))
-                return false;
-
-            int TenCount = RemainderFifty / (int)MoneyKind.TEN;
-            int RemainderTenCount = RemainderFifty % (int)MoneyKind.TEN;
-
-            if (!coinStocker.IsStock(MoneyKind.TEN, TenCount))
-                return false;
+            // 足りた場合
+            changeCase.Add(MoneyKind.TEN, dev);
 
             // お釣りのストックは充分
-            return true;
+            return changeCase;
+
         }
+
+
+
+        public bool IsChange(int amount)
+        {
+            if (Exchange(amount) == null)
+                return false;
+
+            return true;
+
+        }
+
+
         /// <summary>
         /// 購入可能であるか
         /// </summary>
@@ -169,11 +217,13 @@ namespace VendingMachine.Domain.Moneys
             }
         }
 
-        public void StockMoney(int price)
+        /// <summary>
+        /// キャッシュしたお金から支払う
+        /// </summary>
+        /// <param name="price"></param>
+        public void Pay(int price)
         {
-            price 
-
-            
+            cache.Minus(price);
         }
     }
 

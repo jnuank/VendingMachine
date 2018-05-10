@@ -9,22 +9,29 @@ namespace VendingMachine.Domain
 {
     public class Money
     {
-        /// <summary>
-        /// お金の種類
-        /// </summary>
-        private MoneyKind kind;
-
         // いくら持っているか
         private int amount;
 
-        private Money(MoneyKind kind)
+        public Money(int amount)
         {
-            this.kind = kind;
+            this.amount = amount;
         }
 
-        public static Money Add(MoneyKind kind)
+        /// <summary>
+        /// お金を足す
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns>追加後Moneyインスタンス</returns>
+        public Money Add(int amount)
         {
-            return new Money(kind);
+            int addedAmount = this.amount + amount;
+            return new Money(addedAmount);
+        }
+
+        public Money Minus(int amount)
+        {
+            int minus = this.amount - amount;
+            return new Money(minus);
         }
 
         /// <summary>
@@ -33,7 +40,7 @@ namespace VendingMachine.Domain
         /// <returns></returns>
         public int GetAmount()
         {
-            return (int)kind;
+            return amount;
         }
 
     }

@@ -32,7 +32,7 @@ namespace VendingMachine.Domain
         /// <param name="quantity"></param>
         public void Add(int quantity)
         {
-            this.quantity = quantity;
+            this.quantity += quantity;
         }
 
 

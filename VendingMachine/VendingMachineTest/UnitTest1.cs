@@ -9,18 +9,18 @@ namespace VendingMachineTest
     [TestClass]
     public class UnitTest1
     {
-        VendingLogic logic = new VendingLogic();
+        VendingMachine.VendingMachine logic = new VendingMachine.VendingMachine();
 
         [TestMethod]
         public void TestMethod1()
         {
             logic.PutMoney(MoneyKind.ONE_HUNDRED);
 
-            Assert.AreEqual(100, logic.GetPoolMoneyAmount());
+            Assert.AreEqual(100, logic.DisplayCache());
 
             logic.PutMoney(MoneyKind.TEN);
 
-            Assert.AreEqual(110, logic.GetPoolMoneyAmount());
+            Assert.AreEqual(110, logic.DisplayCache());
         }
 
         [TestMethod]
@@ -34,7 +34,7 @@ namespace VendingMachineTest
 
             logic.PutMoney(MoneyKind.TEN_THOUSAND);
 
-            Assert.AreEqual(0, logic.GetPoolMoneyAmount());
+            Assert.AreEqual(0, logic.DisplayCache());
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@ namespace VendingMachineTest
 
             logic.PutMoney(MoneyKind.FIVE_HUNDRED);
 
-            logic.BuyDrink(DrinkKind.CIDER);
+            logic.BuyDrink(DrinkKind.COKE);
 
             Assert.AreEqual(4, logic.rack.Count(DrinkKind.COKE));
 
@@ -79,7 +79,7 @@ namespace VendingMachineTest
 
             logic.BuyDrink(DrinkKind.COKE);
 
-            Console.WriteLine(logic.GetPoolMoneyAmount());
+            Console.WriteLine(logic.DisplayCache());
 
             Assert.AreEqual(4, logic.rack.Count(DrinkKind.COKE));
 
@@ -103,9 +103,37 @@ namespace VendingMachineTest
             // 120円のコーラを買う
             logic.BuyDrink(DrinkKind.COKE);
 
-            logic.ReturnChange();
+            Assert.AreEqual(880, logic.ReturnChange().Amount());
 
         }
 
+        [TestMethod]
+        public void TestPayment()
+        {
+            // 500円を2回入れる
+            logic.PutMoney(MoneyKind.FIVE_HUNDRED);
+            logic.PutMoney(MoneyKind.FIVE_HUNDRED);
+
+            // 120円のコーラを買う
+            logic.BuyDrink(DrinkKind.COKE);
+
+            Assert.AreEqual(880, logic.DisplayCache());
+
+        }
+
+        [TestMethod]
+        public void TestChange2()
+        {
+            for(int i= 0; i<10; i++)
+            {
+                logic.PutMoney(MoneyKind.ONE_HUNDRED);
+            }
+            // 120円のコーラを買う
+            logic.BuyDrink(DrinkKind.COKE);
+
+            var change = logic.ReturnChange();
+
+            Assert.AreEqual(880, logic.ReturnChange().Amount());
+        }
     }
 }

@@ -28,12 +28,17 @@ namespace VendingMachine
         /// <returns></returns>
         Change ReturnChange();
 
+        /// <summary>
+        /// 入金している金額を表示する
+        /// </summary>
+        /// <returns></returns>
+        int DisplayCache();
     }
 
     /// <summary>
     /// 自動販売機のロジック
     /// </summary>
-    public class VendingLogic : IVending
+    public class VendingMachine : IVending
     {
         #region メンバフィールド
 
@@ -76,17 +81,11 @@ namespace VendingMachine
             if (rack.IsEmpty(kind))
                 return null;
 
-            // 種類を渡すだけで、飲み物が買える
-            Drink drink = rack.TakeOutDrink(kind);
-
             // ドリンクの代金分、プール金から引く
-            // kind.GetPrice()を引数に。
+            coinMech.Pay(kind.GetPrice());
 
-            // 支払った金額分ストックする
-            //coinMech.StockMoney();
-
-            return drink;
-
+            // 種類を渡すだけで、飲み物が買える
+            return rack.TakeOutDrink(kind);
         }
 
         /// <summary>
@@ -95,21 +94,19 @@ namespace VendingMachine
         /// <returns></returns>
         public Change ReturnChange()
         {
-            // TODO:int型になっているので、これを直したい
             return coinMech.Refund();
         }
-
-
-        #endregion
-
         /// <summary>
         /// 自販機に入金している金額を取得する
         /// </summary>
         /// <returns></returns>
-        public int GetPoolMoneyAmount()
+        public int DisplayCache()
         {
             return coinMech.Amount();
         }
+
+        #endregion
+
 
     }
 }

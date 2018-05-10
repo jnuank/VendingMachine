@@ -19,7 +19,7 @@ namespace VendingMachine.Domain
             stocker.Add(MoneyKind.TEN, new Stock(10));
             stocker.Add(MoneyKind.ONE_HUNDRED, new Stock(10));
             stocker.Add(MoneyKind.FIFTY, new Stock(10));
-            stocker.Add(MoneyKind.FIVE_HUNDRED, new Stock(10));
+            stocker.Add(MoneyKind.FIVE_HUNDRED, new Stock(1));
             stocker.Add(MoneyKind.THOUSAND, new Stock(10));
         }
 
@@ -61,16 +61,6 @@ namespace VendingMachine.Domain
         public void Stock(MoneyKind kind)
         {
             stocker[kind].Add(1);
-        }
-
-        /// <summary>
-        /// 指定した種類のお金を返す
-        /// </summary>
-        /// <param name="kind"></param>
-        /// <returns></returns>
-        public Money Pop(MoneyKind kind)
-        {
-            return Money.Add(kind);
         }
 
         #region 両替できるか

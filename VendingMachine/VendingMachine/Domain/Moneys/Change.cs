@@ -32,5 +32,10 @@ namespace VendingMachine.Domain.Moneys
                 moneys.Add(kind);
             }
         }
+
+        public int Amount()
+        {
+            return moneys.Sum(money => (int)money);
+        }
     }
 }
