@@ -14,6 +14,8 @@ namespace VendingMachine.Domain
         /// </summary>
         private MoneyKind kind;
 
+        // いくら持っているか
+        private int amount;
 
         private Money(MoneyKind kind)
         {

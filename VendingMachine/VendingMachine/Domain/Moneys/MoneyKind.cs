@@ -14,6 +14,8 @@ namespace VendingMachine.Domain
     {
         [Description("1円")]
         ONE = 1,
+        [Description("5円")]
+        FIVE = 5,
         [Description("10円")]
         TEN = 10,
         [Description("50円")]

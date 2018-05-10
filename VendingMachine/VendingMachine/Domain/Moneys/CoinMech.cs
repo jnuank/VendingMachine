@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using VendingMachine.Utility;
 
 namespace VendingMachine.Domain.Moneys
 {
@@ -25,10 +26,12 @@ namespace VendingMachine.Domain.Moneys
         /// <param name="kind"></param>
         public void Add(MoneyKind kind)
         {
-            // 1円、2000円、5000円、10000円は受け付けない
+            // 1円、5円、2000円、5000円、10000円は受け付けない
             // これは業務ルール
 
             if (kind == MoneyKind.ONE)
+                return;
+            if (kind == MoneyKind.FIVE)
                 return;
             if (kind == MoneyKind.TWO_THOUSAND)
                 return;
@@ -37,6 +40,9 @@ namespace VendingMachine.Domain.Moneys
             if (kind == MoneyKind.TEN_THOUSAND)
                 return;
 
+            // Todo:
+            // プール金の方は、int amountだけ持つようにする。
+            // 実際のMoneyKindはCoinStockerに入れてしまう。
             cache.Add(kind);
         }
 
@@ -46,9 +52,9 @@ namespace VendingMachine.Domain.Moneys
         }
 
         // お釣りを返す
-        public Change ReturnChange()
+        public Change Refund()
         {
-            return cache.Return();
+            return cache.Refund();
         }
 
         private int CalcChange(int price)
@@ -154,8 +160,20 @@ namespace VendingMachine.Domain.Moneys
         public void StockMoney()
         {
             // キャッシュしているお金を取得　List
+            var pool = cache.TakeOut();
 
             // 硬貨別に保存 引数:List
+            foreach (var moneyKind in pool)
+            {
+                coinStocker.Stock(moneyKind);
+            }
+        }
+
+        public void StockMoney(int price)
+        {
+            price 
+
+            
         }
     }
 

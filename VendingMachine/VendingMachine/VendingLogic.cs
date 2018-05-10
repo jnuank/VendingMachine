@@ -71,7 +71,7 @@ namespace VendingMachine
             // お金の都合で購入出来ない状態
             if (!coinMech.IsPurchase(kind.GetPrice()))
                 return null;
-
+                
             // 在庫が無かったら何も無し
             if (rack.IsEmpty(kind))
                 return null;
@@ -79,6 +79,11 @@ namespace VendingMachine
             // 種類を渡すだけで、飲み物が買える
             Drink drink = rack.TakeOutDrink(kind);
 
+            // ドリンクの代金分、プール金から引く
+            // kind.GetPrice()を引数に。
+
+            // 支払った金額分ストックする
+            //coinMech.StockMoney();
 
             return drink;
 
@@ -91,7 +96,7 @@ namespace VendingMachine
         public Change ReturnChange()
         {
             // TODO:int型になっているので、これを直したい
-            return coinMech.ReturnChange();
+            return coinMech.Refund();
         }
 
 

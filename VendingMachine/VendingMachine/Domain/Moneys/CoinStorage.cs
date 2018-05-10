@@ -20,6 +20,7 @@ namespace VendingMachine.Domain
             stocker.Add(MoneyKind.ONE_HUNDRED, new Stock(10));
             stocker.Add(MoneyKind.FIFTY, new Stock(10));
             stocker.Add(MoneyKind.FIVE_HUNDRED, new Stock(10));
+            stocker.Add(MoneyKind.THOUSAND, new Stock(10));
         }
 
         /// <summary>
@@ -51,6 +52,15 @@ namespace VendingMachine.Domain
         public int Count(MoneyKind kind)
         {
             return stocker[kind].Count();   
+        }
+
+        /// <summary>
+        /// 指定した金額をストックする
+        /// </summary>
+        /// <param name="kind"></param>
+        public void Stock(MoneyKind kind)
+        {
+            stocker[kind].Add(1);
         }
 
         /// <summary>
