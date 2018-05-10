@@ -34,22 +34,16 @@ namespace VendingMachine.Utility
         }
 
         /// <summary>
-        /// 飲み物の種類に応じて、Drinkインスタンスを返す
+        /// 列挙体の要素の数を返します。MAXとか自前で用意していないときに便利
         /// </summary>
-        /// <param name=""></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerator"></param>
         /// <returns></returns>
-        public static Drink GetDrink(this DrinkKind kind)
+        public static int Count(this MoneyKind enumerator)
         {
-            if (kind == DrinkKind.COKE)
-                return new Drink(DrinkKind.COKE);
+            string[] names = Enum.GetNames(enumerator.GetType());
 
-            if (kind == DrinkKind.TEA)
-                return new Drink(DrinkKind.TEA);
-
-            if (kind == DrinkKind.CIDER)
-                return new Drink(DrinkKind.CIDER);
-
-            return null;
+            return names.Count();
         }
 
     }

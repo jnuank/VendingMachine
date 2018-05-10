@@ -12,6 +12,9 @@ namespace VendingMachine.Domain
     /// </summary>
     public enum MoneyKind
     {
+        // Todo: 列挙型はやっぱり連番じゃないとあかんな。
+        // for文で回すことも出来ないし。MAXとか付けられないし。
+
         [Description("1円")]
         ONE = 1,
         [Description("5円")]
