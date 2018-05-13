@@ -43,7 +43,6 @@ namespace VendingMachine.Domain.Moneys
             // 貨幣在庫にお金を保管する
             coinStocker.Stock(kind);
 
-            // todo:kind.value();みたいにする
             // 入れた貨幣の金額をキャッシュする
             cache.Add(kind.GetPrice());
         }
@@ -95,16 +94,16 @@ namespace VendingMachine.Domain.Moneys
             if (count < 0)
             {
                 int abs = Math.Abs(count);
-                if (coinStocker.IsChange100(abs))
+                if (coinStocker.CanExchangeTo100Yen(abs))
                 {
                     changeCase.Add(MoneyKind.ONE_HUNDRED, 5);
 
                 }
-                else if (coinStocker.IsChange50(abs))
+                else if (coinStocker.CanExchangeTo50Yen(abs))
                 {
                     changeCase.Add(MoneyKind.FIFTY, 10);
                 }
-                else if (coinStocker.IsChange10(abs))
+                else if (coinStocker.CanExchangeTo10Yen(abs))
                 {
                     changeCase.Add(MoneyKind.TEN, 50);
                 }
@@ -123,11 +122,11 @@ namespace VendingMachine.Domain.Moneys
             if (count < 0)
             {
                 int abs = Math.Abs(count);
-                if (coinStocker.IsChange50(abs))
+                if (coinStocker.CanExchangeTo50Yen(abs))
                 {
                     changeCase.Add(MoneyKind.FIFTY, 2);
                 }
-                else if (coinStocker.IsChange10(abs))
+                else if (coinStocker.CanExchangeTo10Yen(abs))
                 {
                     changeCase.Add(MoneyKind.TEN, 10);
                 }
@@ -146,7 +145,7 @@ namespace VendingMachine.Domain.Moneys
             if (count < 0)
             {
                 int abs = Math.Abs(count);
-                if (coinStocker.IsChange10(abs))
+                if (coinStocker.CanExchangeTo10Yen(abs))
                 {
                     changeCase.Add(MoneyKind.TEN, 5);
                 }

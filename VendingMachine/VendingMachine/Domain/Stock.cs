@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VendingMachine.Domain
+﻿namespace VendingMachine.Domain
 {
     /// <summary>
     /// 在庫を表すクラス
@@ -34,7 +28,6 @@ namespace VendingMachine.Domain
         {
             this.quantity += quantity;
         }
-
 
         /// <summary>
         /// 在庫切れか

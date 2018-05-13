@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace VendingMachine.Domain
 {
@@ -12,8 +7,6 @@ namespace VendingMachine.Domain
     /// </summary>
     public enum MoneyKind
     {
-        // Todo: 列挙型はやっぱり連番じゃないとあかんな。
-        // for文で回すことも出来ないし。MAXとか付けられないし。
         [Description("1円")]
         [Price(1)]
         ONE = 0,

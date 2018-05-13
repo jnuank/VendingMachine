@@ -94,7 +94,6 @@ namespace VendingMachine
         /// <returns></returns>
         public Change ReturnChange()
         {
-            // Todo:返却後、Cacheを消し忘れている。直す
             return coinMech.Refund();
         }
         /// <summary>

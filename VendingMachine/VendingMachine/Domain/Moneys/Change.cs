@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VendingMachine.Utility;
 
 namespace VendingMachine.Domain.Moneys
@@ -14,12 +11,16 @@ namespace VendingMachine.Domain.Moneys
     {
         List<MoneyKind> moneys = new List<MoneyKind>();
 
-        // コンストラクタを隠す
         public Change(List<MoneyKind> moneys)
         {
             this.moneys = moneys;
         }
 
+        /// <summary>
+        /// お釣りに追加する
+        /// </summary>
+        /// <param name="kind"></param>
+        /// <param name="amount"></param>
         public void Add(MoneyKind kind, int amount = 1)
         {
             for(int i=0; i<amount; i++)
@@ -28,6 +29,10 @@ namespace VendingMachine.Domain.Moneys
             }
         }
 
+        /// <summary>
+        /// お釣りの金額を取得する
+        /// </summary>
+        /// <returns></returns>
         public int Amount()
         {
             return moneys.Sum(money => money.GetPrice());

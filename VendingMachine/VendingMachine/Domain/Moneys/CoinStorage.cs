@@ -59,29 +59,28 @@ namespace VendingMachine.Domain
         /// 指定した金額をストックする
         /// </summary>
         /// <param name="kind"></param>
-        public void Stock(MoneyKind kind)
+        public void Stock(MoneyKind kind, int amount = 1)
         {
-            stocker[kind].Add(1);
+            stocker[kind].Add(amount);
         }
 
         #region 両替できるか
 
-        // Todo:名称とかひどいから後で直す
-        public bool IsChange100(int amount)
+        public bool CanExchangeTo100Yen(int amount)
         {
-            int count = amount / 100;
+            int count = amount / MoneyKind.ONE_HUNDRED.GetPrice();
             return (Count(MoneyKind.ONE_HUNDRED) - count) >= 0;
         }
 
-        public bool IsChange50(int amount)
+        public bool CanExchangeTo50Yen(int amount)
         {
-            int count = amount / 50;
+            int count = amount / MoneyKind.FIFTY.GetPrice();
             return (Count(MoneyKind.FIFTY) - count) >= 0;
         }
 
-        public bool IsChange10(int amount)
+        public bool CanExchangeTo10Yen(int amount)
         {
-            int count = amount / 10;
+            int count = amount / MoneyKind.TEN.GetPrice();
             return (Count(MoneyKind.TEN) - count) >= 0;
         }
         #endregion
