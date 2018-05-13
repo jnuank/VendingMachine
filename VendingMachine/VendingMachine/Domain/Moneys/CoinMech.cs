@@ -17,7 +17,7 @@ namespace VendingMachine.Domain.Moneys
         /// <summary>
         /// 硬貨在庫
         /// </summary>
-        private MoneyStorage coinStocker = new MoneyStorage();
+        private MoneyStorage coinStrage = new MoneyStorage();
 
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace VendingMachine.Domain.Moneys
                 return;
 
             // 貨幣在庫にお金を保管する
-            coinStocker.Stock(kind);
+            coinStrage.Stock(kind);
 
             // 入れた貨幣の金額をキャッシュする
             cache.Add(kind.GetPrice());
@@ -73,6 +73,8 @@ namespace VendingMachine.Domain.Moneys
             return (Amount() - price) >= 0;
         }
 
+
+
         /// <summary>
         /// 両替する
         /// </summary>
@@ -82,10 +84,11 @@ namespace VendingMachine.Domain.Moneys
         {
             int rem = 0;
             int dev = 0;
+            
             // 500円が何枚必要か
             dev = Math.DivRem(amount, 500, out rem);
 
-            int count = coinStocker.Count(MoneyKind.FIVE_HUNDRED) - dev;
+            int count = coinStrage.Count(MoneyKind.FIVE_HUNDRED) - dev;
 
             // お釣りケース作成
             Change changeCase = new Change(new List<MoneyKind>());
@@ -94,16 +97,16 @@ namespace VendingMachine.Domain.Moneys
             if (count < 0)
             {
                 int abs = Math.Abs(count);
-                if (coinStocker.CanExchangeTo100Yen(abs))
+                if (coinStrage.CanExchangeTo100Yen(abs))
                 {
                     changeCase.Add(MoneyKind.ONE_HUNDRED, 5);
 
                 }
-                else if (coinStocker.CanExchangeTo50Yen(abs))
+                else if (coinStrage.CanExchangeTo50Yen(abs))
                 {
                     changeCase.Add(MoneyKind.FIFTY, 10);
                 }
-                else if (coinStocker.CanExchangeTo10Yen(abs))
+                else if (coinStrage.CanExchangeTo10Yen(abs))
                 {
                     changeCase.Add(MoneyKind.TEN, 50);
                 }
@@ -117,16 +120,16 @@ namespace VendingMachine.Domain.Moneys
             changeCase.Add(MoneyKind.FIVE_HUNDRED, dev);
 
             dev = Math.DivRem(rem, 100, out rem);
-            count = coinStocker.Count(MoneyKind.ONE_HUNDRED) - dev;
+            count = coinStrage.Count(MoneyKind.ONE_HUNDRED) - dev;
 
             if (count < 0)
             {
                 int abs = Math.Abs(count);
-                if (coinStocker.CanExchangeTo50Yen(abs))
+                if (coinStrage.CanExchangeTo50Yen(abs))
                 {
                     changeCase.Add(MoneyKind.FIFTY, 2);
                 }
-                else if (coinStocker.CanExchangeTo10Yen(abs))
+                else if (coinStrage.CanExchangeTo10Yen(abs))
                 {
                     changeCase.Add(MoneyKind.TEN, 10);
                 }
@@ -140,12 +143,12 @@ namespace VendingMachine.Domain.Moneys
             changeCase.Add(MoneyKind.ONE_HUNDRED, dev);
 
             dev = Math.DivRem(rem, 50, out rem);
-            count = coinStocker.Count(MoneyKind.FIFTY) - dev;
+            count = coinStrage.Count(MoneyKind.FIFTY) - dev;
 
             if (count < 0)
             {
                 int abs = Math.Abs(count);
-                if (coinStocker.CanExchangeTo10Yen(abs))
+                if (coinStrage.CanExchangeTo10Yen(abs))
                 {
                     changeCase.Add(MoneyKind.TEN, 5);
                 }
@@ -160,7 +163,7 @@ namespace VendingMachine.Domain.Moneys
 
 
             dev = Math.DivRem(rem, 10, out rem);
-            count = coinStocker.Count(MoneyKind.TEN) - dev;
+            count = coinStrage.Count(MoneyKind.TEN) - dev;
 
             if (count < 0)
             {
